@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>BTC Scenario Model — 21 Sep 2026</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --card: #141a2e;
+    --line: #243049;
+    --text: #e8edf7;
+    --muted: #93a0b8;
+    --gold: #f5c15c;
+    --green: #3dd68c;
+    --red: #ff6b7a;
+    --blue: #6aa8ff;
+    --orange: #ff9f43;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(1200px 600px at 10% -10%, #1a2450 0%, var(--bg) 45%);
+    color: var(--text);
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 22px 64px; }
+  h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.03em; }
+  .sub { color: var(--muted); margin: 0 0 22px; }
+  .grid { display: grid; gap: 14px; }
+  .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .card {
+    background: linear-gradient(180deg, #182038, var(--card));
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 16px 14px;
+  }
+  .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .v { font-size: 22px; font-weight: 650; margin-top: 6px; }
+  .up { color: var(--green); }
+  .dn { color: var(--red); }
+  .gold { color: var(--gold); }
+  h2 { font-size: 18px; margin: 22px 0 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; letter-spacing: .04em; }
+  .note { color: var(--muted); font-size: 13px; line-height: 1.55; }
+  .pill {
+    display: inline-block; padding: 3px 8px; border-radius: 999px;
+    font-size: 12px; border: 1px solid var(--line); color: var(--muted);
+  }
+  .barwrap { height: 10px; background: #0e1426; border-radius: 99px; overflow: hidden; }
+  .bar { height: 100%; }
+  .cols { display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
+  @media (max-width: 860px) {
+    .kpi, .cols { grid-template-columns: 1fr; }
+  }
+  .legend span { margin-right: 12px; font-size: 12px; color: var(--muted); }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bitcoin scenario model</h1>
+  <p class="sub">21 Sep 2026 · spot ~$85,160 · built from FMP price, FRED rates, Unusual Whales flow / dark pool / crypto greeks, TipRanks analyst tape. Not a guarantee.</p>
+
+  <div class="kpi">
+    <div class="card"><div class="k">Spot</div><div class="v gold">$85,160</div><div class="note">+4.9% today · ATH $126,198</div></div>
+    <div class="card"><div class="k">vs MAs</div><div class="v up">+17% / +21%</div><div class="note">50d $72.8k · 200d $70.5k</div></div>
+    <div class="card"><div class="k">Drawdown from ATH</div><div class="v dn">−32.5%</div><div class="note">2026 low $57,748 (Jun)</div></div>
+    <div class="card"><div class="k">1m realized swing</div><div class="v">~$63k → $85k</div><div class="note">August–September squeeze</div></div>
+  </div>
+
+  <h2>Probability-weighted paths</h2>
+  <div class="card">
+    <svg viewBox="0 0 1000 280" width="100%" height="280" role="img">
+      <rect x="0" y="0" width="1000" height="280" fill="#0e1426"/>
+      <g stroke="#243049" stroke-width="1">
+        <line x1="70" y1="30" x2="70" y2="230"/>
+        <line x1="70" y1="230" x2="960" y2="230"/>
+        <line x1="70" y1="80" x2="960" y2="80"/>
+        <line x1="70" y1="130" x2="960" y2="130"/>
+        <line x1="70" y1="180" x2="960" y2="180"/>
+      </g>
+      <g fill="#93a0b8" font-size="12" font-family="sans-serif">
+        <text x="8" y="84">$120k</text>
+        <text x="8" y="134">$100k</text>
+        <text x="8" y="184">$80k</text>
+        <text x="8" y="234">$60k</text>
+        <text x="70" y="255">21 Sep</text>
+        <text x="430" y="255">21 Oct</text>
+        <text x="880" y="255">31 Dec</text>
+      </g>
+      <polygon points="70,188 430,168 430,198" fill="#3dd68c" opacity="0.12"/>
+      <polygon points="430,155 960,105 960,165 430,195" fill="#3dd68c" opacity="0.10"/>
+      <polygon points="70,188 430,195 430,215" fill="#ff6b7a" opacity="0.12"/>
+      <polygon points="430,195 960,165 960,230 430,220" fill="#ff6b7a" opacity="0.10"/>
+      <polyline points="70,188 430,183 960,155" fill="none" stroke="#f5c15c" stroke-width="3"/>
+      <polyline points="70,188 430,162 960,118" fill="none" stroke="#3dd68c" stroke-width="2" stroke-dasharray="6 4"/>
+      <polyline points="70,188 430,208 960,205" fill="none" stroke="#ff6b7a" stroke-width="2" stroke-dasharray="6 4"/>
+      <circle cx="70" cy="188" r="5" fill="#f5c15c"/>
+    </svg>
+    <div class="legend">
+      <span><i class="dot" style="background:#f5c15c"></i>Base</span>
+      <span><i class="dot" style="background:#3dd68c"></i>Bull</span>
+      <span><i class="dot" style="background:#ff6b7a"></i>Bear</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <div class="k">Next 30 days (to 21 Oct)</div>
+      <table>
+        <tr><th>Case</th><th>Prob</th><th>Range</th><th>Center</th></tr>
+        <tr><td>Bull</td><td>30%</td><td>$90k–$98k</td><td class="up">$94k</td></tr>
+        <tr><td>Base</td><td>45%</td><td>$80k–$90k</td><td class="gold">$86k</td></tr>
+        <tr><td>Bear</td><td>25%</td><td>$68k–$78k</td><td class="dn">$73k</td></tr>
+      </table>
+      <p class="note">Probability-weighted 1m mark ≈ <b>$85.3k</b> (flat to +2%). Needs a weekly close through ~$86k to unlock the bull band.</p>
+    </div>
+    <div class="card">
+      <div class="k">Through 31 Dec 2026</div>
+      <table>
+        <tr><th>Case</th><th>Prob</th><th>Range</th><th>Center</th></tr>
+        <tr><td>Bull</td><td>25%</td><td>$105k–$120k</td><td class="up">$112k</td></tr>
+        <tr><td>Base</td><td>45%</td><td>$82k–$100k</td><td class="gold">$92k</td></tr>
+        <tr><td>Bear</td><td>30%</td><td>$55k–$75k</td><td class="dn">$65k</td></tr>
+      </table>
+      <p class="note">Probability-weighted EOY ≈ <b>$89k</b> (+5% from spot). Reclaiming $126k ATH is a tail, not the base.</p>
+    </div>
+  </div>
+
+  <h2>What the live stack is saying</h2>
+  <div class="cols">
+    <div class="card">
+      <div class="k">Macro — FRED / Treasury</div>
+      <table>
+        <tr><td>Fed funds (Aug avg)</td><td>3.63%</td></tr>
+        <tr><td>Policy after 16 Sep hike</td><td>3.75–4.00%</td></tr>
+        <tr><td>10-year (17 Sep)</td><td>4.94%</td></tr>
+        <tr><td>2-year</td><td>4.67%</td></tr>
+        <tr><td>Broad dollar (11 Sep)</td><td>118.21</td></tr>
+      </table>
+      <p class="note">Curve is upward-sloping and the 10-year jumped toward 5% into the hike. That is a liquidity headwind for a high-beta asset. Next FOMC 28 Oct is the 1-month pivot.</p>
+    </div>
+    <div class="card">
+      <div class="k">Tape — Unusual Whales</div>
+      <table>
+        <tr><td>Market PC ratio (18 Sep)</td><td>0.73 (call-heavy)</td></tr>
+        <tr><td>Call / put premium</td><td>$33.2B / $16.3B</td></tr>
+        <tr><td>Crypto-group delta flow</td><td>Net positive into Friday</td></tr>
+        <tr><td>IBIT 1m</td><td>$36.60 → $46.02 (+26%)</td></tr>
+        <tr><td>MSTR 1m</td><td>$92.52 → $153.92 (+66%)</td></tr>
+      </table>
+      <p class="note">Largest IBIT dark-pool prints last week were $10–46M blocks around $42.8–$45.7. Flow alerts mix long-dated IBIT puts (2028 $15/$20 — hedge structure) with MSTR/COIN call repeats.</p>
+    </div>
+  </div>
+
+  <h2>Proxy board</h2>
+  <div class="card">
+    <table>
+      <tr><th>Name</th><th>Last</th><th>1 day</th><th>1 month</th><th>YTD vs start</th><th>1 year</th></tr>
+      <tr><td>IBIT</td><td>$46.02</td><td class="up">+6.3%</td><td class="up">+25.7%</td><td class="dn">−7.3%</td><td class="dn">−31.1%</td></tr>
+      <tr><td>MSTR</td><td>$153.92</td><td class="up">+16.4%</td><td class="up">+66.4%</td><td class="up">+1.3%</td><td class="dn">−55.9%</td></tr>
+      <tr><td>COIN</td><td>$194.25</td><td class="up">+11.7%</td><td class="up">+32.8%</td><td class="dn">−14.1%</td><td class="dn">−43.4%</td></tr>
+      <tr><td>MARA</td><td>$13.24</td><td class="up">+13.7%</td><td class="up">+47.8%</td><td class="up">+47.4%</td><td class="dn">−28.4%</td></tr>
+      <tr><td>RIOT</td><td>$23.75</td><td class="up">+8.5%</td><td class="up">+25.6%</td><td class="up">+87.5%</td><td class="up">+35.6%</td></tr>
+      <tr><td>SPY (bench)</td><td>$761.69</td><td class="dn">−0.1%</td><td class="dn">−0.8%</td><td class="up">+11.7%</td><td class="up">+15.0%</td></tr>
+    </table>
+    <p class="note">Crypto beta ripped while the S&amp;P sat still. That is catch-up after the June low, not proof the cycle high is back.</p>
+  </div>
+
+  <h2>TipRanks on the listed proxies</h2>
+  <div class="cols">
+    <div class="card">
+      <div class="k">MSTR — 20 analysts / 113 recs (1y)</div>
+      <p>Buy 106 · Hold 5 · Sell 2</p>
+      <div class="barwrap"><div class="bar" style="width:94%; background:#3dd68c"></div></div>
+      <p class="note">Consensus is still structurally long. Track record vs those targets: 6 beats / 103 misses, average return <b class="dn">−45.6%</b>. Street has been late and high all year.</p>
+    </div>
+    <div class="card">
+      <div class="k">COIN — 40 analysts / 215 recs (1y)</div>
+      <p>Buy 144 · Hold 59 · Sell 12</p>
+      <div class="barwrap"><div class="bar" style="width:67%; background:#3dd68c"></div></div>
+      <p class="note">More two-way than MSTR. Still 39 beats / 153 misses, average return <b class="dn">−18.9%</b>. Earnings next window ~29 Oct — same week as FOMC.</p>
+    </div>
+  </div>
+
+  <h2>How the probabilities were set</h2>
+  <div class="card note">
+    <p><b>Bull 1m / EOY (30% / 25%).</b> Price is back above both moving averages. Friday options market was call-led. IBIT printed large blocks on the bounce. ETF flows flipped back to +$433M on 18 Sep after mid-week redemptions. If Oct 28 is “one and done” and $86k holds as support, $94k then $110k+ is the path.</p>
+    <p><b>Base (45% / 45%).</b> Hawkish Warsh Fed, 10-year near 5%, CLARITY dead for 2026, and a 32% drawdown that never fully capitulated. Most likely is a wide $80–100k coil into year-end, not a new ATH.</p>
+    <p><b>Bear (25% / 30%).</b> Another hike in October, dollar bid, ETF outflows stacking, and a break of $76k then $70k. Cycle bears still argue the 54% peak-to-trough so far is shallow vs history. That keeps $55–65k on the board for EOY even if it is not the median.</p>
+    <p>Weighted EOY $89k is a modest positive drift from $85k. It is not Standard Chartered’s $100k or Bernstein’s $150k, and it is not NYDIG’s $38k floor. Those are the wings.</p>
+  </div>
+
+  <h2>Levels to watch</h2>
+  <div class="card">
+    <table>
+      <tr><th>Level</th><th>Why</th></tr>
+      <tr><td>$86k</td><td>ETF / LTH cost cluster and the ceiling that decides the 1m bull case</td></tr>
+      <tr><td>$80–81k</td><td>Last week’s breakout shelf</td></tr>
+      <tr><td>$76k</td><td>Failed-close risk after CLARITY / hike week</td></tr>
+      <tr><td>$70–73k</td><td>50d / 200d bundle</td></tr>
+      <tr><td>$58k</td><td>June cycle low</td></tr>
+      <tr><td>$100k / $126k</td><td>Psychological / ATH — EOY tail only</td></tr>
+    </table>
+  </div>
+
+  <p class="note" style="margin-top:22px">Sources: FMP BTCUSD quote + history; FRED FEDFUNDS, DTWEXBGS, DGS10; UW market state 18 Sep, crypto greek flow, IBIT dark pool, ticker performances, yield curve 17 Sep; TipRanks 1y summaries for MSTR and COIN. Scenario weights are a judgment overlay on that stack, not a fitted econometric forecast. Not financial advice.</p>
+</div>
+</body>
+</html>
